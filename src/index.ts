@@ -1,12 +1,14 @@
 import { fastifyAwilixPlugin } from '@fastify/awilix'
-import { TypeBoxTypeProvider } from '@fastify/type-provider-typebox'
-import { fastify } from 'fastify'
-import { userRoutes } from './routes/user.routes'
+import cors from '@fastify/cors'
+import jwt from '@fastify/jwt'
 import fastifySwagger from '@fastify/swagger'
 import fastifySwaggerUi from '@fastify/swagger-ui'
-import cors from '@fastify/cors'
+import { TypeBoxTypeProvider } from '@fastify/type-provider-typebox'
+import { fastify } from 'fastify'
 import { container } from './container'
+import { userRoutes } from './routes/user.routes'
 import { diContext } from './shared/context/di-context'
+import { authRoutes } from './routes/auth.routes'
 
 const app = fastify({ logger: true }).withTypeProvider<TypeBoxTypeProvider>()
 
@@ -20,6 +22,11 @@ app
   //#region CORS
   .register(cors, {
     origin: '*', //TODO:  Ajustar para o domínio do front-end quando fizer o deploy
+  })
+  //#endregion
+  //#region JWT
+  .register(jwt, {
+    secret: process.env.JWT!
   })
   //#endregion
   //#region Awilix
@@ -56,6 +63,7 @@ app.addHook('onRequest', (request, reply, done) => {
   })
 })
 
+app.register(authRoutes, { prefix: '/auth' })
 app.register(userRoutes, { prefix: '/user' })  
 
 const start = async () => {

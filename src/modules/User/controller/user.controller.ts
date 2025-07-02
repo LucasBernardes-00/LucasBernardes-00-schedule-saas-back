@@ -3,7 +3,7 @@ import { ResponseStatus } from "../../../shared/enum/responseStatus.enum"
 import { createUserSchema } from "../schemas/createUser"
 import { FastifyReplyTypeBox } from "../../../shared/types.ts/fastify-reply.type"
 import { FastifyRequestTypeBox } from "../../../shared/types.ts/fastify-request.type"
-import { User } from "../entity/user.entity"
+import { User } from "../entity/user"
 import { CreateUserUseCase } from "../useCase/createUser.usecase"
 
 class UserController {

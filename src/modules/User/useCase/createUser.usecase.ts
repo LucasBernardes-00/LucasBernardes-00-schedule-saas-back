@@ -1,7 +1,7 @@
 import { IUserRepositorie } from "../../../shared/context/user/userRepositorie.interface"
 import { IErrorManager } from "../../../shared/contracts/core/internal/errorManager.interface"
 import { IUseCase } from "../../../shared/contracts/userCase"
-import { User } from "../entity/user.entity"
+import { User } from "../entity/user"
 
 export class CreateUserUseCase implements IUseCase<User, string | null> {
   private readonly _repositorie: IUserRepositorie

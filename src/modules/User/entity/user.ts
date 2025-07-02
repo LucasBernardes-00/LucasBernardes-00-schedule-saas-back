@@ -12,7 +12,13 @@ export class User {
   private email: Email
   private password: Password
 
-  private constructor(name: string, username: string, email: Email, password: Password, id?: string) {
+  private constructor(
+    name: string, 
+    username: string, 
+    email: Email, 
+    password: Password, 
+    id?: string
+  ) {
     this.id = id
     this.name = name
     this.username = username
@@ -40,6 +46,10 @@ export class User {
     let passwordVO = Password.restore(user.password)
 
     return new User(user.name, user.username, emailVO, passwordVO, user.id)
+  }
+
+  async validatePassword(password: string): Promise<boolean> { 
+    return await this.password.compare(password)
   }
 
   //#region Getters

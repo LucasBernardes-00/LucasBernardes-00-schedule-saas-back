@@ -28,4 +28,8 @@ export class Password {
   getValue() {
 		return this.password
 	}
+
+  async compare(password: string): Promise<boolean> {
+    return await HashManager.comparePassword(password, this.password)
+  }
 }

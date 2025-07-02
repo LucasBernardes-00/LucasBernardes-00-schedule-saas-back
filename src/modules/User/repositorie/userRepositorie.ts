@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client"
 import { IUserRepositorie } from "../../../shared/context/user/userRepositorie.interface"
-import { User } from "../entity/user.entity"
+import { User } from "../entity/user"
 
 export class UserRepositorie implements IUserRepositorie {
   private readonly _prisma: PrismaClient
@@ -44,4 +44,16 @@ export class UserRepositorie implements IUserRepositorie {
 		})
 		return user ? true : false
   }
+
+	async findByUsername(username: string): Promise<User | null> {
+		let data = await this._prisma.user.findUnique({
+			where: {
+				username: username
+			}
+		})
+
+		if (!data) return null
+
+		return User.restore({ id: data.id, name: data.name, username: data.username, email: data.email, password: data.password })
+	}
 }

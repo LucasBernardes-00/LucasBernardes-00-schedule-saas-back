@@ -1,6 +1,6 @@
 import { FastifyInstance } from "fastify"
 import UserController from "../modules/User/controller/user.controller"
-import { createUserSchema } from "../shared/schemas/user/createUser.schema"
+import { createUserSchema } from "../modules/User/schemas/createUser"
 
 export async function userRoutes(app: FastifyInstance) {
   app.post('/create', { schema: createUserSchema }, (req, rep) => {

@@ -3,6 +3,7 @@ import { IErrorManager } from "../../../shared/contracts/core/internal/errorMana
 import { StringExt } from "../../../shared/core/internal/stringExt"
 import { Email } from "../../../shared/valueObjects/email"
 import { Password } from "../../../shared/valueObjects/password"
+import { CreateUserDTO, RestoreUserDTO } from "../schemas/userDTO"
 
 export class User {
   private id?: string
@@ -19,26 +20,26 @@ export class User {
     this.password = password
   }
 
-  static async create(name: string, username: string, email: string, password: string): Promise<User | null> {
+  static async create(user: CreateUserDTO): Promise<User | null> {
     const errorManager =  getCurrentScope().resolve<IErrorManager>('errorManager')
 
-    if (StringExt.isNullOrEmptyOrWhiteSpace(name)) {
+    if (StringExt.isNullOrEmptyOrWhiteSpace(user.name)) {
 			errorManager.addError("Campo nome é obrigatório")
 		}
-		if (StringExt.isNullOrEmptyOrWhiteSpace(username)) {
+		if (StringExt.isNullOrEmptyOrWhiteSpace(user.username)) {
 			errorManager.addError("Campo username é obrigatório")
 		}
-		let emailVO = Email.create(email)
-    let passwordVO = await Password.create(password)
+		let emailVO = Email.create(user.email)
+    let passwordVO = await Password.create(user.password)
 
-    return errorManager.hasErrors() ? null :  new User(name, username, emailVO!, passwordVO!)
+    return errorManager.hasErrors() ? null :  new User(user.name, user.username, emailVO!, passwordVO!)
   }
 
-  static restore(name: string, username: string, email: string, password: string, id: string): User {
-    let emailVO = Email.restore(email)
-    let passwordVO = Password.restore(password)
+  static restore(user: RestoreUserDTO): User {
+    let emailVO = Email.restore(user.email)
+    let passwordVO = Password.restore(user.password)
 
-    return new User(name, username, emailVO, passwordVO, id)
+    return new User(user.name, user.username, emailVO, passwordVO, user.id)
   }
 
   //#region Getters

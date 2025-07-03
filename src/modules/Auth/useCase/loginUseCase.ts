@@ -2,9 +2,9 @@ import { IUserRepositorie } from "../../../shared/context/user/userRepositorie.i
 import { IErrorManager } from "../../../shared/contracts/core/internal/errorManager.interface";
 import { IUseCase } from "../../../shared/contracts/userCase";
 import { User } from "../../User/entity/user";
-import { LoginCredentialsDTO } from "../schemas/loginDTO";
+import { Credential } from "../entity/credential";
 
-export class LoginUseCase implements IUseCase<LoginCredentialsDTO, User | null> {
+export class LoginUseCase implements IUseCase<Credential, User | null> {
   private readonly _userRepositorie: IUserRepositorie;
   private readonly _errorManager: IErrorManager;
 
@@ -13,15 +13,15 @@ export class LoginUseCase implements IUseCase<LoginCredentialsDTO, User | null> 
     this._errorManager = errorManager;
   }
 
-  async execute(credentials: LoginCredentialsDTO): Promise<User | null> {
-    const user = await this._userRepositorie.findByUsername(credentials.username)
+  async execute(credentials: Credential): Promise<User | null> {
+    const user = await this._userRepositorie.findByUsername(credentials.Username)
     
     if (!user) {
       this._errorManager.addError("Username ou senha inválidos")
       return null
     }
 
-    if(!await user.validatePassword(credentials.password)) {
+    if(!await user.validatePassword(credentials.Password)) {
       this._errorManager.addError("Username ou senha inválidos")
       return null
     }

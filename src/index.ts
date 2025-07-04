@@ -53,8 +53,8 @@ app
   //#endregion
 //#endregion
 
+// Cria um escopo novo para cada requisição
 app.addHook('onRequest', (request, reply, done) => {
-  // Cria um escopo novo para cada requisição
   const scope = container.createScope()
   request.diScope = scope
 
@@ -64,7 +64,7 @@ app.addHook('onRequest', (request, reply, done) => {
 })
 
 app.register(authRoutes, { prefix: '/auth' })
-app.register(userRoutes, { prefix: '/user' })  
+app.register(userRoutes, { prefix: '/user' })
 
 const start = async () => {
   try {

@@ -4,7 +4,7 @@
   "description": "Back-end do SAAS para gerenciamento de agendamentos",
   "main": "index.ts",
   "scripts": {
-    "build": "tsc && prisma generate --schema prisma/schema.prisma",
+    "build": "tsc && prisma generate",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-dev --inspect=9229 --respawn --transpile-only src/index.ts",
     "prisma:generate": "npx prisma generate --schema prisma/schema.prisma",
@@ -43,5 +43,8 @@
     "awilix": "^12.0.5",
     "bcrypt": "^6.0.0",
     "fastify": "^5.4.0"
+  },
+  "prisma": {
+    "schema": "./prisma"
   }
 }

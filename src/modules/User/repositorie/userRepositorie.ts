@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client"
 import { IUserRepositorie } from "../../../shared/context/user/userRepositorie.interface"
 import { User } from "../entity/user"
+import { User as UserPrisma } from "@prisma/client"
 
 export class UserRepositorie implements IUserRepositorie {
   private readonly _prisma: PrismaClient
@@ -11,7 +12,7 @@ export class UserRepositorie implements IUserRepositorie {
 
   async create(user: User): Promise<string | null> {
     try {
-			let result = await this._prisma.user.create({
+			let result: UserPrisma = await this._prisma.user.create({
 				data: {
 					name: user.Name,
 					username: user.Username,

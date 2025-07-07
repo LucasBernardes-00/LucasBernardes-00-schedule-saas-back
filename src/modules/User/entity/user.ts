@@ -29,12 +29,11 @@ export class User {
   static async create(user: CreateUserDTO): Promise<User | null> {
     const errorManager =  getCurrentScope().resolve<IErrorManager>('errorManager')
 
-    if (StringExt.isNullOrEmptyOrWhiteSpace(user.name)) {
-			errorManager.addError("Campo nome é obrigatório")
-		}
-		if (StringExt.isNullOrEmptyOrWhiteSpace(user.username)) {
+    if (StringExt.isNullOrEmptyOrWhiteSpace(user.name))
+			errorManager.addError("Campo nome é obrigatório")	
+		if (StringExt.isNullOrEmptyOrWhiteSpace(user.username))
 			errorManager.addError("Campo username é obrigatório")
-		}
+	
 		let emailVO = Email.create(user.email)
     let passwordVO = await Password.create(user.password)
 

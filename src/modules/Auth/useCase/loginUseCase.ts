@@ -1,8 +1,8 @@
-import { IUserRepositorie } from "../../../shared/context/user/userRepositorie.interface";
-import { IErrorManager } from "../../../shared/contracts/core/internal/errorManager.interface";
-import { IUseCase } from "../../../shared/contracts/userCase";
-import { User } from "../../User/entity/user";
-import { Credential } from "../entity/credential";
+import { IUserRepositorie } from "../../../shared/context/user/userRepositorie.interface"
+import { IErrorManager } from "../../../shared/contracts/core/internal/errorManager.interface"
+import { IUseCase } from "../../../shared/contracts/userCase"
+import { User } from "../../User/entity/user"
+import { Credential } from "../entity/credential"
 
 export class LoginUseCase implements IUseCase<Credential, User | null> {
   private readonly _userRepositorie: IUserRepositorie;

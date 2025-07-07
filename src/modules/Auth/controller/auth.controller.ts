@@ -1,5 +1,4 @@
 import { IErrorManager } from "../../../shared/contracts/core/internal/errorManager.interface"
-import { StringExt } from "../../../shared/core/internal/stringExt"
 import { ResponseStatus } from "../../../shared/enum/responseStatus.enum"
 import { FastifyReplyTypeBox } from "../../../shared/types.ts/fastify-reply.type"
 import { FastifyRequestTypeBox } from "../../../shared/types.ts/fastify-request.type"

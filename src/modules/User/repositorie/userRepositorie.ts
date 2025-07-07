@@ -10,7 +10,7 @@ export class UserRepositorie implements IUserRepositorie {
     this._prisma = prisma
   }
 
-  async create(user: User): Promise<string | null> {
+  async create(user: User): Promise<User | null> {
     try {
 			let result: UserPrisma = await this._prisma.user.create({
 				data: {
@@ -21,7 +21,7 @@ export class UserRepositorie implements IUserRepositorie {
 				}
 			})
 	
-			return result.id
+			return User.restore({ id: result.id, name: result.name, username: result.username, email: result.email, password: result.password})
 		}
 		catch (e) {
 			return null

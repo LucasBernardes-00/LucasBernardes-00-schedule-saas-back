@@ -3,7 +3,7 @@ import { ResponseStatus } from '../../../shared/enum/responseStatus.enum'
 
 export const CreateUserSuccessResponse = Type.Object({
   status: Type.Literal(ResponseStatus.SUCCESS),
-  id: Type.String()
+  token: Type.String()
 })
 
 export const CreateUserErrorResponse = Type.Object({
